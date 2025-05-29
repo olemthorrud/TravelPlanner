@@ -1,7 +1,7 @@
 
 # Dependencies from other files
-from .models import Trip, Event, Participant, Expense, Memory, Task
-from .serializers import TripSerializer, EventSerializer, ParticipantSerializer, ParticipantCreateSerializer, MemorySerializer, ExpenseSerializer, TaskSerializer
+from .models import Trip, Event, Participant, Expense, Task
+from .serializers import TripSerializer, EventSerializer, ParticipantSerializer, ParticipantCreateSerializer, ExpenseSerializer, TaskSerializer
 from .external_apis import get_ticketmaster_events, get_country_code, get_coordinates, get_weather_forecast, interpret_weather_forecast
 
 # Django imports
@@ -122,35 +122,6 @@ class ParticipantDetailAPI(generics.RetrieveUpdateDestroyAPIView):
 
     def patch(self, request, *args, **kwargs):
         return Response({'detail': 'Editing participants is not allowed.'})
-
-class MemoryListCreateAPI(generics.ListCreateAPIView):
-    serializer_class = MemorySerializer
-    permission_classes = [IsAuthenticated]
-    
-    def get_queryset(self):
-        trip = get_object_or_404(Trip, id=self.kwargs['trip_id'])
-        
-        # Only participants can view
-        if not trip.participants.filter(id=self.request.user.id).exists():
-            raise PermissionDenied("Only participants can view memories")
-            
-        return Memory.objects.filter(trip=trip)
-
-    def perform_create(self, serializer):
-        trip = get_object_or_404(Trip, id=self.kwargs['trip_id'])
-        
-        # Only participants can add memories
-        if not trip.participants.filter(id=self.request.user.id).exists():
-            raise PermissionDenied("Only participants can add memories")
-
-        participant = get_object_or_404(
-            Participant,
-            user=self.request.user,
-            trip=trip
-        )
-
-        # save using the Participant instance
-        serializer.save(trip=trip, participant=participant)
     
 class ExpenseListCreateAPI(generics.ListCreateAPIView):
     serializer_class = ExpenseSerializer
@@ -239,11 +210,10 @@ class ExternalInfoAPI(APIView):
 
         if not country_code:
             return Response({
-                'events': [] #something to tell the frontend that we found no location (unfamiliar location)
+                'events': [] #something to tell the frontend that we found no location, so no weather and no events
             })
 
-        coordinates = get_coordinates(city_name, country_code)
-        lat, lon = map(float, coordinates)
+        lat, lon = map(float, get_coordinates(city_name, country_code))
 
         weather_forecast = get_weather_forecast(lat, lon)
         events = get_ticketmaster_events(city_name, country_code, trip.start_date, trip.end_date)
