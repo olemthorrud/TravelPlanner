@@ -17,6 +17,18 @@
   cursor: pointer;
 }
 
+.btnEdit {
+  width: fit-content;
+  padding: 12px 30px;
+  background-color: #0f0f2e;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  margin-top: 50px;
+  cursor: pointer;
+}
+
 .important h3,
 .participants h3,
 .expenses h3 {
