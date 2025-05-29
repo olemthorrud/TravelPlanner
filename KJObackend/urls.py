@@ -6,7 +6,6 @@ from .api import (
     EventDetailAPI,
     ParticipantListCreateAPI,
     ParticipantDetailAPI,
-    MemoryListCreateAPI,
     ExpenseListCreateAPI,
     ExpenseDetailAPI,
     TaskListCreateAPI,
@@ -26,7 +25,6 @@ urlpatterns = [
     path('trips/<int:trip_id>/events/<int:event_id>/', EventDetailAPI.as_view(), name='event-detail'),
     path('trips/<int:trip_id>/participants/', ParticipantListCreateAPI.as_view(), name='trip-participants'), 
     path('trips/<int:trip_id>/participants/<int:participant_id>/', ParticipantDetailAPI.as_view()),
-    path('trips/<int:trip_id>/memories/', MemoryListCreateAPI.as_view(), name='trip-memories'),
     path('trips/<int:trip_id>/expenses/', ExpenseListCreateAPI.as_view(), name='trip-expenses'),
     path('trips/<int:trip_id>/expenses/<int:expense_id>/', ExpenseDetailAPI.as_view(), name='expense-detail'),
     path('trips/<int:trip_id>/tasks/', TaskListCreateAPI.as_view(), name='trip-tasks'),
@@ -34,5 +32,4 @@ urlpatterns = [
 
     # External information API endpoint
     path('trips/<int:trip_id>/external_info/', ExternalInfoAPI.as_view(), name='external-info'),
-
 ]

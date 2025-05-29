@@ -1,6 +1,6 @@
 # KJObackend/serializers.py
 from rest_framework import serializers
-from .models import Trip, Event, Participant, Memory, Expense, Task
+from .models import Trip, Event, Participant, Expense, Task
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -38,7 +38,7 @@ class EventSerializer(serializers.ModelSerializer):
     event_id = serializers.IntegerField(source='id', read_only=True)
     class Meta:
         model = Event
-        fields = ['event_id', 'name', 'date', 'description', 'location_lat', 'location_lon', 'votes']
+        fields = ['event_id', 'name', 'date', 'description']
 
 class ExpenseSerializer(serializers.ModelSerializer):
     expense_id = serializers.IntegerField(source='id', read_only=True)
@@ -47,30 +47,18 @@ class ExpenseSerializer(serializers.ModelSerializer):
         model = Expense
         fields = ['expense_id', 'trip_id', 'amount', 'description', 'paid_by', 'shared_between']
 
-class MemorySerializer(serializers.ModelSerializer):
-    memory_id = serializers.IntegerField(source='id', read_only=True)
-    trip_id = serializers.PrimaryKeyRelatedField(source='trip', read_only=True)
-    trip_name = serializers.StringRelatedField(source='trip.name', read_only=True)
-    participant_id = serializers.PrimaryKeyRelatedField(read_only=True)   
-    participant_username = serializers.StringRelatedField(source='participant.username', read_only=True)
-    
-    class Meta:
-        model = Memory
-        fields = ['memory_id', 'trip_id', 'trip_name', 'participant_id', 'participant_username', 'description']
-
 class TripSerializer(serializers.ModelSerializer):
     trip_id = serializers.IntegerField(source='id', read_only=True)  # Add this line
     owner = serializers.PrimaryKeyRelatedField(read_only=True)
     owner_username = serializers.StringRelatedField(source='owner.username', read_only=True)
     participants = ParticipantSerializer(source='trip_participants', many=True, read_only=True)
     events = EventSerializer(many=True, read_only=True)
-    memories = MemorySerializer(many=True, read_only=True)
     expenses = ExpenseSerializer(many=True, read_only=True)
     tasks = TaskSerializer(many=True, read_only=True)
     
     class Meta:
         model = Trip
-        fields = ['trip_id', 'name', 'start_date', 'end_date', 'owner', 'owner_username', 'participants', 'destination', 'description', 'events', 'memories', 'expenses', 'tasks']
+        fields = ['trip_id', 'name', 'start_date', 'end_date', 'owner', 'owner_username', 'participants', 'destination', 'description', 'events', 'expenses', 'tasks']
 
 
 class ParticipantCreateSerializer(serializers.ModelSerializer):
@@ -87,7 +75,3 @@ class ParticipantCreateSerializer(serializers.ModelSerializer):
             'user_id',
             'username',    
         ]
-
-
-    
-    
