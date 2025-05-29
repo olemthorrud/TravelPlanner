@@ -1,0 +1,83 @@
+.economyPage {
+  display: flex;
+  padding: 40px;
+}
+
+.settlement {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.settlement h2 {
+  margin-top: 20px;
+}
+
+.expenseList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.expenseBox {
+  background: #f5f5ff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 18px;
+  max-width: 500px;
+}
+
+.summary {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.youOwe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.youOwe p {
+  font-size: 25px;
+  margin: 0;
+}
+
+.expenseBox {
+  position: relative;
+  padding: 18px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.buttonGroup {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+}
+
+.buttonGroup button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 18px;
+  color: #555;
+  transition: color 0.2s;
+}
+
+.buttonGroup button:hover {
+  color: #000;
+}
+
+
+
+

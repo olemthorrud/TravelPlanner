@@ -1,0 +1,47 @@
+# Django
+__pycache__/
+.env
+
+# Database and migrations
+db.sqlite3
+**/migrations/*
+!**/migrations/__init__.py
+
+# Virtual environment
+.venv
+venv
+
+# React
+travel-planner-app/README.md
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# production
+build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# travel-planner-app
+subprojects
+travel-planner-app/public/logo192.png
+travel-planner-app/public/logo512.png
+schema.png
+
+Design_document/
+Requirement_analysis/
+

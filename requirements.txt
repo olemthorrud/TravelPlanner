@@ -1,0 +1,19 @@
+# Backend
+Django==5.2
+djangorestframework==3.15.1
+python-dotenv
+django-cors-headers
+requests
+openai
+
+# Frontend
+Node.js
+npm
+react-router-dom
+cross-env --save-dev
+react-icons
+recharts
+three @react-three/fiber @react-three/drei
+react-chartjs-2 
+chart.js@^2.9.4
+recharts

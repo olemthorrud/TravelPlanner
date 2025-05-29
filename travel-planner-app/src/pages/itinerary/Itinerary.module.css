@@ -1,0 +1,93 @@
+.itineraryPage {
+  padding: 40px;
+}
+
+.content {
+  display: flex;
+}
+
+.calendarGrid {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  width: 950px;
+  margin-top: 10px;
+}
+
+.calendarColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendarDate {
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.calendarSlot {
+  width: 150px;
+  height: 50px;
+  background: white;
+  margin-bottom: 10px;
+  border: 2px solid #e6e6e6;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;   
+  justify-content: center; 
+  position: relative;  
+  padding: 4px;
+}
+
+
+.suggestionCard {
+  background-color: #fffdd0;
+  padding: 10px 20px 10px 10px;
+  width: 100%; 
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: grab;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+
+.deleteBtn {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.suggestionPanel h1 {
+  margin-top: -90px
+}
+
+.suggestionGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 150px;
+}
+
+.addSuggestion {
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 30px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #0f0f2e;;
+  font-family: inherit;
+  width: fit-content;
+  line-height: 1;
+  display: inline-block;
+}
+  

@@ -1,0 +1,105 @@
+.responsibilitiesPage {
+  padding: 40px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px; 
+  align-items: center;
+  margin-top: 10px; 
+}
+
+.trashBin {
+  text-align: center;
+  font-size: 16px;
+  color: darkred;
+  padding: 10px;
+  border: 2px dashed darkred;
+  border-radius: 30px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: 40px;
+  background: #ffe6e6;
+}
+
+.header button {
+  margin: 0;
+}
+
+.taskBoard {
+  display: flex;
+  gap: 50px;
+  justify-content: left;
+}
+
+.taskColumn {
+  flex: 1;
+  max-width: 360px;
+  width: 250px;
+  min-height: 450px;
+  padding: 20px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todo {
+  margin-left : 40px;
+  background-color: #f8c6c6;
+}
+
+.inprogress {
+  background-color: #fffcc2;
+}
+
+.done {
+  background-color: #5e7f59;
+}
+
+.taskCard {
+  background: white;
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  cursor: grab;
+}
+
+.responsible {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #ddd;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #0f0f2e;
+}
+
+.taskSlot {
+  background: #f4f4f4;
+  height: 48px;
+  border-radius: 6px;
+}
+
+.allTasksList .taskItem strong {
+  font-size: 1.125rem; 
+}
+
+.allTasksList .taskItem p {
+  font-size: 0.875rem; 
+  color: #555;
+  margin-top: 0.25rem;
+}

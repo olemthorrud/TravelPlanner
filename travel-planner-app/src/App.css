@@ -1,0 +1,164 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom right, #f9c5c5, #ffba89);
+  background-attachment: fixed; 
+}
+
+h1 {
+  font-size: 80px;
+  font-weight: bold;
+  margin: 0;
+  color: #0f0f2e;
+  font-family: 'Arial', sans-serif;
+  white-space: nowrap;
+}
+
+h2 {
+  font-size: 60px;
+  color: #0f0f2e;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 0;
+}
+
+h3 {
+  font-size: 40px;
+  color: #0f0f2e;
+  font-family: 'Arial', sans-serif;
+  font-weight: 800;
+  margin: 30px 0 20px;
+}
+
+p {
+  font-size: 30px;
+  margin: 5px 0;
+  color: #0f0f2e;
+}
+
+.left-column {
+  flex: 2;
+}
+
+.right-column {
+  flex: 2;
+  text-align: right;
+}
+
+.add {
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 25px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  z-index: 10;
+  position: relative;
+}
+
+.btn {
+  width: fit-content;
+  padding: 12px 30px;
+  background-color: #0f0f2e;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.btnCancel {
+  width: fit-content;
+  padding: 12px 30px;
+  background-color: #9f9fa3;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+/* Popup standards */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  font: 'Arial', sans-serif;
+  width: 300px;
+  text-align: center;
+}
+
+.popup popup-title {
+  display: block;
+  width: 100%;
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-family: Arial, sans-serif;
+}
+
+.popup label {
+  margin-bottom: 100px;
+  font-weight: 400;
+  color: #333;
+}
+
+.popup input,
+.popup select,
+.popup textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 0.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.popup textarea {
+  min-height: 4rem; 
+  resize: vertical;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+
+/* Error message styles */
+.error {
+  width: fit-content;
+  padding: 2px 10px;
+  background-color: rgba(255, 0, 0, 0.2);
+  color: #bb0000;
+  border: 1px solid #bb0000;
+  border-radius: 5px;
+}
+
+.error p {
+  font-size: 14px;
+}
