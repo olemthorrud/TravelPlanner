@@ -106,6 +106,11 @@ class ParticipantListCreateAPI(generics.ListCreateAPIView):
             
         serializer.save(trip=trip)
 
+        # Update the already existing expenses to include all participants
+        all_participants = Participant.objects.filter(trip=trip)
+        for expense in trip.expenses.all():
+            expense.shared_between.set(all_participants)
+
 class ParticipantDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ParticipantSerializer
     permission_classes = [IsAuthenticated]
@@ -113,10 +118,10 @@ class ParticipantDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         trip = get_object_or_404(Trip, id=self.kwargs["trip_id"])
         if not trip.participants.filter(id=self.request.user.id).exists():
-            raise PermissionDenied("Only participants can modify participants")
+            raise PermissionDenied("Only participants can see or delete other participants")
         return get_object_or_404(Participant, id=self.kwargs["participant_id"], trip=trip)
     
-    # To prevent participants from being edited
+    # Override to prevent participants from being edited
     def put(self, request, *args, **kwargs):
         return Response({'detail': 'Editing participants is not allowed.'})
 
@@ -130,7 +135,6 @@ class ExpenseListCreateAPI(generics.ListCreateAPIView):
     def get_queryset(self):
         trip = get_object_or_404(Trip, id=self.kwargs['trip_id'])
         
-        # Only participants can view
         if not trip.participants.filter(id=self.request.user.id).exists():
             raise PermissionDenied("Only participants can view expenses")
             
@@ -139,7 +143,7 @@ class ExpenseListCreateAPI(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         trip = get_object_or_404(Trip, id=self.kwargs['trip_id'])
         
-        # Only participants can add expenses
+            # Only participants can add expenses
         if not trip.participants.filter(id=self.request.user.id).exists():
             raise PermissionDenied("Only participants can add expenses")
             
@@ -218,7 +222,10 @@ class ExternalInfoAPI(APIView):
         weather_forecast = get_weather_forecast(lat, lon)
         events = get_ticketmaster_events(city_name, country_code, trip.start_date, trip.end_date)
         weather_interpretation = interpret_weather_forecast(weather_forecast)
-        return Response({
+        
+        response_data = {
             'events': events,
             'weather_interpretation': weather_interpretation
-        })
+        }
+        print(response_data)
+        return Response(response_data)

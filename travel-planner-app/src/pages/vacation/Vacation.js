@@ -67,7 +67,6 @@ export default function VacationOverview() {
     fetchExternalInfo();
   }, [trip, tripId]);
 
-
   const handleAddParticipantSubmit = async (e) => {
     if (e) 
       e.preventDefault(); 
@@ -116,7 +115,7 @@ export default function VacationOverview() {
 
   const handleUpdateTrip = async () => {
 
-      const updatedTrip = await api(`/trips/${tripId}/`, {
+      const updatedTrip = await api( `/trips/${tripId}/`, {
         method: 'PATCH',
         body: {
           name: editedName,
@@ -162,37 +161,34 @@ export default function VacationOverview() {
         </div>
 
         {externalEvents.length > 0 && (
-          <div className={styles.weatherBox}>
-            <h3>WHAT’S ON</h3>
-            <ul>
-              {externalEvents.map(ev => (
-                <li key={ev.url}>
-                  <a
-                    href={ev.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.eventTitle}
-                  >
-                    {ev.name} <span className={styles.eventDate}>({ev.date})</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+  <div className={styles.exInfoBox}>
+    <h3>WHAT’S ON</h3>
+    <ul>
+      {typeof externalEvents[0] === 'string' ? (
+        <li>{externalEvents[0]}</li>
+      ) : (
+        externalEvents.map(ev => (
+          <li key={ev.url}>
+            <a
+              href={ev.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.eventTitle}
+            >
+              {ev.name} <span className={styles.eventDate}>({ev.date})</span>
+            </a>
+          </li>
+        ))
+      )}
+    </ul>
+  </div>
+)}
       </div>
 
       <div className="right-column">
         <button className={styles.btnEdit} onClick={() => setEditVacation(true)}>
           EDIT VACATION
         </button>
-
-        {weatherSummary && (
-          <div className={styles.weatherBox}>
-            <h3>WEATHER</h3>
-            <p>{weatherSummary}</p>
-          </div>
-        )}
 
         <div className={styles.important}>
           <h3>TO DO</h3>
@@ -234,6 +230,12 @@ export default function VacationOverview() {
             <p>No expenses yet</p>
           )}
         </div>
+        {weatherSummary && (
+          <div className={styles.exInfoBox}>
+            <h3>WEATHER</h3>
+            <p>{weatherSummary}</p>
+          </div>
+        )}
       </div>
 
     {editVacation && (
