@@ -52,7 +52,7 @@ class Participant(models.Model):
         unique_together = ['user', 'trip']
 
     def __str__(self):
-        return f"{self.user.name} - {self.trip.name}"
+        return f"{self.user.username} - {self.trip.name}"
 
 class Event(models.Model):
     # Member variables

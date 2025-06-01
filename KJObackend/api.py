@@ -82,29 +82,30 @@ class EventDetailAPI(generics.RetrieveUpdateDestroyAPIView):
 class ParticipantListCreateAPI(generics.ListCreateAPIView):
     serializer_class = ParticipantSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def get_serializer_class(self):
         return ParticipantCreateSerializer if self.request.method == 'POST' else ParticipantSerializer
 
     def get_queryset(self):
         trip = get_object_or_404(Trip, id=self.kwargs['trip_id'])
-        
         if not trip.participants.filter(id=self.request.user.id).exists():
             raise PermissionDenied("Only participants can view other participants")
-            
         return Participant.objects.filter(trip=trip)
 
     def perform_create(self, serializer):
         trip = get_object_or_404(Trip, id=self.kwargs['trip_id'])
-        
         if not trip.participants.filter(id=self.request.user.id).exists():
             raise PermissionDenied("Only participants can add other participants")
 
-        user_id = serializer.validated_data['user'].id
-        if Participant.objects.filter(user_id=user_id, trip=trip).exists():
-            raise ValidationError("User already participates in this trip")
-            
-        serializer.save(trip=trip)
+        username = self.request.data.get('username_to_add')
+        if not username:
+            raise ValidationError({'username_to_add': 'This field is required.'})
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise ValidationError({'username_to_add': 'User not found.'})
+
+        serializer.save(user=user, trip=trip)
 
         # Update the already existing expenses to include all participants
         all_participants = Participant.objects.filter(trip=trip)

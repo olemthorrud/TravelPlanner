@@ -62,7 +62,7 @@ class TripSerializer(serializers.ModelSerializer):
 
 
 class ParticipantCreateSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
+    username_to_add = serializers.CharField(write_only=True)
     participant_id = serializers.IntegerField(source='id', read_only=True)
     user_id      = serializers.PrimaryKeyRelatedField(source='user', read_only=True)
     username     = serializers.StringRelatedField(source='user.username', read_only=True)
@@ -71,7 +71,20 @@ class ParticipantCreateSerializer(serializers.ModelSerializer):
         model  = Participant
         fields = [
             'participant_id',
-            'user',
+            'username_to_add',
             'user_id',
             'username',    
         ]
+    def validate_username_to_add(self, value):
+        try:
+            user = User.objects.get(username=value)
+            return user
+        except User.DoesNotExist:
+            raise serializers.ValidationError("User not found")
+
+
+    def create(self, validated_data):
+        # `validate_username_to_add()` has already replaced the string with a User instance
+        user = validated_data.pop('username_to_add')
+        trip = validated_data.pop('trip')
+        return Participant.objects.create(user=user, trip=trip)
