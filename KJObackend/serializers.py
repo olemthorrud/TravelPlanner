@@ -81,10 +81,8 @@ class ParticipantCreateSerializer(serializers.ModelSerializer):
             return user
         except User.DoesNotExist:
             raise serializers.ValidationError("User not found")
-
-
+ 
     def create(self, validated_data):
-        # `validate_username_to_add()` has already replaced the string with a User instance
         user = validated_data.pop('username_to_add')
         trip = validated_data.pop('trip')
         return Participant.objects.create(user=user, trip=trip)
