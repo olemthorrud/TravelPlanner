@@ -1,16 +1,98 @@
-# Original project proposal 
-## Description
-Planning a vacation for a large group can be overwhelming, with numerous suggestions to consider, expenses to track, and logistics to coordinate. As we have encountered this problem several times ourselves, we want to find a solution that gathers a lot of necessary and useful functionalities, creating an efficient platform for all participants of the vacation.
+Travel Planner App – Setup Guide
 
-## Scope
-The project will implement a travel planning platform in the form of a website to gather all the functionalities that can be necessary and useful to plan a vacation. This is done by creating a database-driven website with multiple pages, making the process easy, clear, and comfortable for all participants in the trip. Our vision is to include functionalities such as
+Step 1: Setup Virtual Environment
 
-* Itinerary: This will include a calendar with an overview of the different activities. Each trip will mainly choose one travel leader with administrator permission, but solutions such as suggestions and voting possibilities will allow other inputs.
-* Budget and payment settlement: An overview of the expenses of the trip with diagrams and a payment settlement that shows how much different people are in debt / have paid through the trip. In addition, a currency converter can be implemented.
-* Responsibilities: Checklist of different responsibilities and things to be done.
-* Map: Overview of places to be visited, hotel, restaurants, etc.
-* Memories: A place where all participants can share pictures they took during the trip and possibly make comments.
-* Personal profile: An overview of past and future travels you have participate in, a profile picture, information about yourself, etc.
+Create a new folder to house your virtual environment.
 
-## Environment
-To make the website, our approach will be to use HTML, CSS and Javascript for the frontend, Django for the backend, and SQL for the database.
+Open your favourite code editor and create a virtual environment. Activate it:
+
+python3 -m venv venv
+source venv/bin/activate 
+
+Step 2: Clone Repository
+
+Install git if necessary. Then, clone into the repo (skipped for now—we’ll see which branch ends up being the final one).
+
+After cloning, navigate to the root folder:
+
+cd SE4A_KienNinhDo_JulieRonesenLandaas_OleMandiusHarmThorrud
+
+Step 3: Install Dependencies
+
+Install the required packages:
+
+pip install -r requirements.txt
+
+Step 4: Setup Environment Variables
+
+Create a .env file in the root directory with the following contents:
+
+SECRET_KEY='django-insecure-@xxum1*m@4c)rzux6qgn3r70)$7ry1^$_a-l+c=7ftc*hlxt-^'
+TICKETMASTER_API_KEY=B3pcAtorOZdM5qHffd2Ogd8N5TUSsLat
+OPENAI_API_KEY=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
+WEATHER_API_KEY=e10b7018498e647fd5c84fac60bd9a11
+
+Step 5: Start the Django Backend
+
+Run migrations and start the server:
+
+python manage.py makemigrations KJObackend
+python manage.py migrate
+python manage.py runserver
+
+Step 6: Create Test Users
+
+Open a new terminal, navigate to the project folder, and enter Django’s shell:
+
+cd SE4A_KienNinhDo_JulieRonesenLandaas_OleMandiusHarmThorrud
+python manage.py shell
+
+Then paste and run:
+
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+
+names = ["Marco", "Giulia", "Luca", "Sofia", "Andrea"]
+
+for name in names:
+    username = name.lower()
+    password = f"{username}polimi"
+    
+    user, created = User.objects.get_or_create(username=username)
+    if created:
+        user.set_password(password)
+        user.first_name = name
+        user.save()
+    
+    # Ensure token is created
+    Token.objects.get_or_create(user=user)
+
+You may need to press Enter twice.
+
+To view tokens for manual testing, run:
+
+for token in Token.objects.select_related('user').all():
+    print(f"{token.user.username}: {token.key}")
+
+Type quit and press Enter to exit the shell.
+
+Step 7: Start Frontend
+
+Navigate to the frontend directory and start the React app:
+
+cd travel-planner-app
+npm install
+npm start
+
+Happy Testing!
+
+⸻
+
+Additional Notes:
+
+If you want to see what’s happening in the database, you can run commands like:
+
+curl -H "Authorization: Token giuliasToken" \
+http://localhost:8000/api/trips/ | jq 
+
+This displays Giulia’s trips and all their associated information.
