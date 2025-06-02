@@ -27,10 +27,7 @@ Step 4: Setup Environment Variables
 
 Create a .env file in the root directory with the following contents:
 
-SECRET_KEY='django-insecure-@xxum1*m@4c)rzux6qgn3r70)$7ry1^$_a-l+c=7ftc*hlxt-^'
-TICKETMASTER_API_KEY=B3pcAtorOZdM5qHffd2Ogd8N5TUSsLat
-OPENAI_API_KEY=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
-WEATHER_API_KEY=e10b7018498e647fd5c84fac60bd9a11
+
 
 Step 5: Start the Django Backend
 
